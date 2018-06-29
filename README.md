@@ -17,6 +17,16 @@ Open browser to http://localhost:3000
 
 
 
+# Install Newman
+
+    npm install -g newman
+
+
+
+Postman/Newman verification of API:
+
+    newman run test\WeasleyAPI.postman_collection.json
+
 
 
 Command line verification of API

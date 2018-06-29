@@ -11,7 +11,7 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "d34439ca-bd72-4763-a196-1bea8941f7d4",
+						"id": "7cbc0aaf-92a3-4389-a1a9-6d04b97b6fdc",
 						"type": "text/javascript",
 						"exec": [
 							"pm.test(\"Verify customerId is 7\", function () {",
@@ -24,6 +24,10 @@
 							"    var jsonData = pm.response.json();",
 							"    const cust = jsonData[0];",
 							"    pm.expect(cust.firstName).to.eql(\"Ginny\");",
+							"});",
+							"",
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
 							"});"
 						]
 					}
