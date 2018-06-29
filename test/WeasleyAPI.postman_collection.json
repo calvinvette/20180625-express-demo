@@ -1,0 +1,292 @@
+{
+	"info": {
+		"_postman_id": "66d7cecb-68bd-427b-8f40-5d9004724ff7",
+		"name": "WeasleyAPI",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Find Ginny",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "d34439ca-bd72-4763-a196-1bea8941f7d4",
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Verify customerId is 7\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    const cust = jsonData[0];",
+							"    pm.expect(cust.customerId.toString()).to.eql('7');",
+							"});",
+							"",
+							"pm.test(\"Verify FirstName is Ginny\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    const cust = jsonData[0];",
+							"    pm.expect(cust.firstName).to.eql(\"Ginny\");",
+							"});"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json"
+					}
+				],
+				"body": {},
+				"url": {
+					"raw": "http://localhost:3000/api/customers/7",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"customers",
+						"7"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Find All Customers",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "cf05d03a-5fd1-41c4-a54e-4f2cd36c63da",
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"",
+							"",
+							"pm.test(\"More than 25 customers\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.length).to.gte(25);",
+							"});"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "http://localhost:3000/api/customers/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"customers",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Add Severus",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "9cdadd02-3443-40e1-ad61-20cfa904154b",
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Status code is 201\", function () {",
+							"    pm.response.to.have.status(201);",
+							"});",
+							"",
+							"pm.test(\"Content-Type is present\", function () {",
+							"    pm.response.to.have.header(\"Content-Type\");",
+							"});",
+							"",
+							"pm.test(\"Content-Type is JSON\", function () {",
+							"    return postman.getResponseHeader(\"Content-Type\") === (\"application/json\");",
+							"});",
+							"",
+							"pm.test(\"Returned first name is Severus\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.firstName).to.eql('Severus');",
+							"});",
+							"",
+							"pm.test(\"Returned customerId > 26\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(parseInt(jsonData.customerId, 10)).to.gt(26);",
+							"});"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"firstName\": \"Severus\",\r\n  \"lastName\": \"Snape\",\r\n  \"phoneNumber\": \"+44 0206 987-9999\",\r\n  \"email\": \"severus.snape@hogwarts.ac.uk\",\r\n  \"birthDate\": \"1960-01-09\"\r\n}"
+				},
+				"url": {
+					"raw": "http://localhost:3000/api/customers/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"customers",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update Ginny",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "fa16beae-33a9-49df-9170-150f6299187e",
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Status code is 201\", function () {",
+							"    pm.response.to.have.status(201);",
+							"});",
+							"",
+							"pm.test(\"Content-Type is present\", function () {",
+							"    pm.response.to.have.header(\"Content-Type\");",
+							"});",
+							"",
+							"pm.test(\"Content-Type is JSON\", function () {",
+							"    return postman.getResponseHeader(\"Content-Type\") === (\"application/json\");",
+							"});",
+							"",
+							"pm.test(\"Returned last name is Potter\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.lastName).to.eql('Potter');",
+							"});"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "    {\n        \"firstName\": \"Ginny\",\n        \"customerId\": \"7\",\n        \"lastName\": \"Potter\",\n        \"phoneNumber\": \"+44 0206 987-2728\",\n        \"email\": \"ginny.weasley@hogwarts.ac.uk\",\n        \"birthDate\": \"1981-08-11\"\n    }"
+				},
+				"url": {
+					"raw": "http://localhost:3000/api/customers/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"customers",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete Draco",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "5c64a1db-5e84-416f-84b6-87e5733a597c",
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Status code is 201\", function () {",
+							"    pm.response.to.have.status(201);",
+							"});",
+							"",
+							"pm.test(\"Content-Type is present\", function () {",
+							"    pm.response.to.have.header(\"Content-Type\");",
+							"});",
+							"",
+							"pm.test(\"Content-Type is JSON\", function () {",
+							"    return postman.getResponseHeader(\"Content-Type\") === (\"application/json\");",
+							"});",
+							"",
+							"pm.test(\"Returned customerId === 15\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.customerId).to.eql('15');",
+							"});",
+							"",
+							"// pm.test(\"Returned last name is Malfoy\", function () {",
+							"//     var jsonData = pm.response.json();",
+							"//     pm.expect(jsonData.lastName).to.eql('Malfoy');",
+							"// });",
+							"",
+							"pm.test(\"Customer 15 to be gone\", function () {",
+							"    // var jsonData = pm.response.json();",
+							"    pm.sendRequest(\"http://localhost:3000/api/customers/15\", function (err, response) {",
+							"        // console.log(response.json());",
+							"        pm.expect(response.json().length).to.eql(0);",
+							"    });",
+							"    ",
+							"});",
+							""
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "    {\n        \"customerId\": \"15\"\n    }"
+				},
+				"url": {
+					"raw": "http://localhost:3000/api/customers/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"customers",
+						""
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

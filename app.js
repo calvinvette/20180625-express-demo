@@ -25,6 +25,12 @@ app.use(express.urlencoded({extended: false}));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+var cors = require('cors');
+var corsOptions = {
+    exposedHeaders : ['Location']
+};
+app.use(cors(corsOptions));
+
 //Make our db accessible to our router
 app.use((req, res, next) => {
     req.db = db;
